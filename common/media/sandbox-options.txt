@@ -1,0 +1,11 @@
+VERSION = 1,
+
+option BuildableGarageDoor.MaxSize
+{
+  type = integer,
+  min = 2,
+  max = 10,
+  default = 5,
+  page = BuildableGarageDoor,
+  translation = BGD_SandboxOptions_MaxSize,
+}

@@ -1,0 +1,5 @@
+Sandbox_EN = {
+  Sandbox_BuildableGarageDoor = "Buildable Garage Doors",
+  Sandbox_BGD_SandboxOptions_MaxSize = "Maximum allowed garage door size, in tiles",
+  Sandbox_BGD_SandboxOptions_MaxSize_tooltip = "Set the maximum allowed size for garage doors<br><br>Example:<br>3 mean only 3-tiles doors are allowed (left, middle, right)<br>4 mean 3-tiles and 4-tiles are allowed (left, middle, right) and (left, middle, middle, right)",
+}

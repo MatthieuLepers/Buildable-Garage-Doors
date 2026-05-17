@@ -1,0 +1,4 @@
+UI_EN = {
+  UI_BuildableGarageDoors_IncreaseSizeKey = "Incrémente la taille de la porte pendant la preview",
+  UI_BuildableGarageDoors_DecreaseSizeKey = "Décrémente la taille de la porte pendant la preview",
+}

@@ -1,0 +1,8 @@
+Recipes_EN = {
+  BGDEntityName_GarageDoor_Basic = "Garage Door - Basic",
+  BGDEntityName_GarageDoor_Warehouse = "Garage Door - Warehouse",
+  BGDEntityName_GarageDoor_Fancy = "Garage Door - Fancy",
+  BGDEntityName_GarageDoor_FireDepartment = "Garage Door - Fire Department",
+  BGDEntityName_GarageDoor_Bunker1 = "Garage Door - Bunker",
+  BGDEntityName_GarageDoor_Bunker2 = "Garage Door - Bunker",
+}

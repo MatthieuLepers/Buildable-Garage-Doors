@@ -1,0 +1,63 @@
+module Base
+{
+    xuiSkin default
+    {
+        entity ES_Walls_GarageDoor_Basic
+        {
+            LuaWindowClass = ISEntityWindow,
+            DisplayName    = BGDEntityName_GarageDoor_Basic,
+            Icon           = Build_walls_garage_01_51,
+        }
+    }
+
+    entity Walls_GarageDoor_Basic
+    {
+        component UiConfig
+        {
+            xuiSkin     = default,
+            entityStyle = ES_Walls_GarageDoor_Basic,
+            uiEnabled   = false,
+        }
+
+        component SpriteConfig
+        {
+            skillBaseHealth = 500,
+            dontNeedFrame   = true,
+            breakSound      = BreakMetalDoor,
+
+            face W
+            {
+                layer
+                {
+                    row = walls_garage_01_50,
+                    row = walls_garage_01_49,
+                    row = walls_garage_01_48,
+                }
+            }
+
+            face N
+            {
+                layer
+                {
+                    row = walls_garage_01_51 walls_garage_01_52 walls_garage_01_53,
+                }
+            }
+        }
+
+        component CraftRecipe
+        {
+            timedAction   = BuildWallMetal,
+            time          = 400,
+            category      = Doors,
+            SkillRequired = MetalWelding:5,
+            xpAward       = MetalWelding:50,
+            ToolTip       = Tooltip_craft_BigMetalDoubleDoorDesc,
+            inputs
+            {
+                item 2 [Base.BlowTorch] flags[DontRecordInput],
+                item 3 [Base.WeldingRods] flags[DontRecordInput],
+                item 6 [Base.SheetMetal],
+            }
+        }
+    }
+}

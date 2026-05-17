@@ -1,0 +1,5 @@
+{
+  "Sandbox_BuildableGarageDoor": "Buildable Garage Doors",
+  "Sandbox_BGD_SandboxOptions_MaxSize": "Taille maximale des portes constructibles",
+  "Sandbox_BGD_SandboxOptions_MaxSize_tooltip": "Défini la taille maximale des portes de garage constructibles pendant la phase de build.<br><br>Exemple:<br>3 signifie que seules les portes 3-tiles sont autorisées (gauche, milieu, droite)<br>4 signifie que les portes 3-tiles et 4-tiles sont autorisées (gauche, milieu, droite) et (gauche, milieu, milieu, droite)"
+}
