@@ -1,0 +1,4 @@
+UI_RU = {
+  UI_BuildableGarageDoors_IncreaseSizeKey = "Увеличить размер ворот во время предпросмотра",
+  UI_BuildableGarageDoors_DecreaseSizeKey = "Уменьшить размер ворот во время предпросмотра",
+}

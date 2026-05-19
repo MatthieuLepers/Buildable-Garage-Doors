@@ -1,0 +1,8 @@
+Recipes_RU = {
+  BGDEntityName_GarageDoor_Basic = "Гаражные ворота — базовые",
+  BGDEntityName_GarageDoor_Warehouse = "Гаражные ворота — складские",
+  BGDEntityName_GarageDoor_Fancy = "Гаражные ворота — частные",
+  BGDEntityName_GarageDoor_FireDepartment = "Гаражные ворота — пожарная часть",
+  BGDEntityName_GarageDoor_Bunker1 = "Гаражные ворота — бункер",
+  BGDEntityName_GarageDoor_Bunker2 = "Гаражные ворота — бункер",
+}
