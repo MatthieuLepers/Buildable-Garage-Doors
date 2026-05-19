@@ -1,6 +1,6 @@
 name=[B42] Buildable Garage Doors
 id=BuildableGarageDoors
 author=Aire_Ayquaza
-description=Allow players to build and place 3x2 garage doors
+description=Allow players to build and place garage doors
 minVersion=42.0
-modversion=1.0.0
+modversion=1.0.2
