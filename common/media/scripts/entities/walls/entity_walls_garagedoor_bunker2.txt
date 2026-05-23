@@ -49,8 +49,8 @@ module Base
             timedAction   = BuildWallMetal,
             time          = 400,
             category      = Doors,
-            SkillRequired = MetalWelding:5,
-            xpAward       = MetalWelding:50,
+            SkillRequired = MetalWelding:5;Glassmaking:1,
+            xpAward       = MetalWelding:50;Glassmaking:10,
             ToolTip       = Tooltip_craft_BigMetalDoubleDoorDesc,
             inputs
             {

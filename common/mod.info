@@ -1,6 +1,6 @@
-name=[B42] Buildable Garage Doors
-id=BuildableGarageDoors
+name=[Local][B42] Buildable Garage Doors
+id=BuildableGarageDoorsLocal
 author=Aire_Ayquaza
 description=Allow players to build and place garage doors
 minVersion=42.0
-modversion=1.0.3
+modversion=1.0.4

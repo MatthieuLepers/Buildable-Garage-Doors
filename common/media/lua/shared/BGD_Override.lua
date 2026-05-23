@@ -1,21 +1,22 @@
-Events.OnInitGlobalModData.Add(function()
-  if BGD_ISBUILD_PATCHED then
-    return
-  end
+local BGDHelpers = require "BGD_Helpers"
+local BGDProxies = require "BGD_Proxies"
 
+Events.OnInitGlobalModData.Add(function()
+  if BGD_ISBUILD_PATCHED then return end
   BGD_ISBUILD_PATCHED = true
+
+  -- setInfo override
+  local BGD_oldSetInfo = ISBuildIsoEntity.setInfo
 
   local function BGD_setInfoOverride(self, square, north, sprite, openSprite)
     local spriteObj = getSprite(sprite)
-
     if not spriteObj then
-      return oldSetInfo(self, square, north, sprite, openSprite)
+      return BGD_oldSetInfo(self, square, north, sprite, openSprite)
     end
 
     local props = spriteObj:getProperties()
-
     if not props or not props:has(IsoPropertyType.GARAGE_DOOR) then
-      return oldSetInfo(self, square, north, sprite, openSprite)
+      return BGD_oldSetInfo(self, square, north, sprite, openSprite)
     end
 
     local door = IsoDoor.new(getCell(), square, sprite, north, self)
@@ -108,7 +109,6 @@ Events.OnInitGlobalModData.Add(function()
     end
   end
 
-  local BGD_oldSetInfo = ISBuildIsoEntity.setInfo
   function ISBuildIsoEntity:setInfo(square, north, sprite, openSprite)
     local spriteObj = getSprite(sprite)
 
@@ -122,5 +122,36 @@ Events.OnInitGlobalModData.Add(function()
     end
 
     return BGD_setInfoOverride(self, square, north, sprite, openSprite)
+  end
+
+  -- getGarageSize new method
+  function ISBuildIsoEntity:getGarageSize()
+    local modData = self.modData or {}
+    return modData.BGDGarageDoorSize or 1
+  end
+
+  -- setGarageSize new method
+  function ISBuildIsoEntity:setGarageSize(size)
+    -- Middle tile size validation
+    local min = 0
+    local max = (SandboxVars.BuildableGarageDoor.MaxSize or 5) - 2
+    local sanitizedSize = math.min(max, math.max(min, size))
+
+    local modData = self.modData or {}
+    modData.BGDGarageDoorSize = sanitizedSize + 2 -- adding 2 to add left and right tiles
+    self.modData = modData
+  end
+
+  -- getFace override as proxy
+  local BGD_oldGetFace = ISBuildIsoEntity.getFace
+  function ISBuildIsoEntity:getFace()
+    if not BGDHelpers.IsGarageDoorCursor(self) then
+      return BGD_oldGetFace(self)
+    end
+
+    local originalFace = BGD_oldGetFace(self)
+    if not originalFace then return nil end
+
+    return BGDProxies.SpriteConfigManager_FaceInfoProxy(originalFace, self)
   end
 end)

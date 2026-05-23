@@ -1,5 +1,4 @@
 local BGDHelpers = require "BGD_Helpers"
-local BGDProxies = require "BGD_Proxies"
 
 Events.OnInitGlobalModData.Add(function()
   local BuildableGarageDoor = {}
@@ -20,37 +19,11 @@ Events.OnInitGlobalModData.Add(function()
     Keyboard.KEY_DOWN
   )
 
-  function BuildableGarageDoor.Debug(text)
-    local player = getPlayer()
-
-    if not player then return end
-
-    player:Say(text)
-  end
-
-  local function OverrideCursor(cursor)
-    if not cursor then return end
-    if cursor.garageDoorOverridden then return end
-    cursor.garageDoorOverridden = true
-
-    function cursor:getGarageSize()
-      return BuildableGarageDoor.size + 2
-    end
-
-    local oldGetFace = cursor.getFace
-    function cursor:getFace()
-      local originalFace = oldGetFace(self)
-
-      if not originalFace then return nil end
-
-      return BGDProxies.SpriteConfigManager_FaceInfoProxy(originalFace, self)
-    end
-  end
-
   Events.OnDoTileBuilding2.Add(function(cursor, bRender, x, y, z, square)
     if not bRender or not BGDHelpers.IsGarageDoorCursor(cursor) then return end
 
-    OverrideCursor(cursor)
+    if not cursor then return end
+    cursor:setGarageSize(BuildableGarageDoor.size)
   end)
 
   Events.OnKeyPressed.Add(function(key)
@@ -65,10 +38,12 @@ Events.OnInitGlobalModData.Add(function()
       local val = BuildableGarageDoor.size + 1
 
       BuildableGarageDoor.size = math.min(BuildableGarageDoor.max, val)
+      drag:setGarageSize(BuildableGarageDoor.size)
     elseif key == BuildableGarageDoor.decreaseSizeKey:getValue() then
       local val = BuildableGarageDoor.size - 1
 
       BuildableGarageDoor.size = math.max(BuildableGarageDoor.min, val)
+      drag:setGarageSize(BuildableGarageDoor.size)
     end
   end)
 end)
