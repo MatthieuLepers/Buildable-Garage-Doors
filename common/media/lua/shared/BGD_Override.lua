@@ -1,6 +1,8 @@
 local BGDHelpers = require "BGD_Helpers"
 local BGDProxies = require "BGD_Proxies"
 
+BGD_PlayerSizes = BGD_PlayerSizes or {}
+
 Events.OnInitGlobalModData.Add(function()
   if BGD_ISBUILD_PATCHED then return end
   BGD_ISBUILD_PATCHED = true
@@ -126,6 +128,10 @@ Events.OnInitGlobalModData.Add(function()
 
   -- getGarageSize new method
   function ISBuildIsoEntity:getGarageSize()
+    if isServer() then
+      return BGD_PlayerSizes[self.character:getPlayerNum()] or 1
+    end
+
     local modData = self.modData or {}
     return modData.BGDGarageDoorSize or 1
   end
@@ -140,6 +146,10 @@ Events.OnInitGlobalModData.Add(function()
     local modData = self.modData or {}
     modData.BGDGarageDoorSize = sanitizedSize + 2 -- adding 2 to add left and right tiles
     self.modData = modData
+
+    if isClient() then
+      sendClientCommand("BuildableGarageDoors", "SetGarageDoorSize", { size = sanitizedSize + 2 })
+    end
   end
 
   -- getFace override as proxy
@@ -155,3 +165,12 @@ Events.OnInitGlobalModData.Add(function()
     return BGDProxies.SpriteConfigManager_FaceInfoProxy(originalFace, self)
   end
 end)
+
+if isServer() then
+  Events.OnClientCommand.Add(function(module, command, player, args)
+    if module ~= "BuildableGarageDoors" then return end
+    if command ~= "SetGarageDoorSize" then return end
+
+    BGD_PlayerSizes[player:getOnlineID()] = args.size
+  end)
+end
