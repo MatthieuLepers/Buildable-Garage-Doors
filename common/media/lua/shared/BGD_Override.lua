@@ -129,7 +129,7 @@ Events.OnInitGlobalModData.Add(function()
   -- getGarageSize new method
   function ISBuildIsoEntity:getGarageSize()
     if isServer() then
-      return BGD_PlayerSizes[self.character:getPlayerNum()] or 1
+      return BGD_PlayerSizes[self.character:getOnlineID()] or 1
     end
 
     local modData = self.modData or {}
