@@ -57,6 +57,8 @@ module Base
                 item 2 [Base.BlowTorch] flags[DontRecordInput],
                 item 3 [Base.WeldingRods] flags[DontRecordInput],
                 item 6 [Base.SheetMetal],
+                item 4 [Base.SteelBar/Base.IronBar/Base.MetalBar],
+                item 1 [Base.HeavyChain],
                 item 3 [Base.PaintWhite] flags[DontRecordInput],
             }
         }
