@@ -60,14 +60,6 @@ Events.OnInitGlobalModData.Add(function()
     local totalHealth = baseHealth + bonusHealth + skillBonus;
     door:setHealth(totalHealth)
 
-    if self.objectInfo:getScript() and self.objectInfo:getScript():getParent() then
-      local gameEntityScript = self.objectInfo:getScript():getParent();
-      local isFirstTimeCreated = true;
-      GameEntityFactory.CreateIsoObjectEntity(door, gameEntityScript, isFirstTimeCreated);
-    else
-      print("[BuildableGarageDoor] ISBuildIsoEntity -> Cannot instance components, script missing.")
-    end
-
     local replacedObjectIndex = -1;
     if self.previousStageObject and self.previousStageObject:getSquare() == square then
       replacedObjectIndex = self.previousStageObject:getSquare():transmitRemoveItemFromSquare(self.previousStageObject);
