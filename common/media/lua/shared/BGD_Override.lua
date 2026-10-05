@@ -166,3 +166,44 @@ if isServer() then
     BGD_PlayerSizes[player:getOnlineID()] = args.size
   end)
 end
+
+
+-- Legacy doors created before the entity dependency was removed contain
+-- script-backed components (Script, SpriteConfig and UiConfig/CraftRecipe).
+-- Keep the legacy scripts available long enough for WorldDictionary to load,
+-- then strip those components from each already placed door. Once the world
+-- is saved, the dictionary can drop the old script registrations.
+local function BGD_MigrateLegacyGarageDoor(object)
+  if not object or not instanceof(object, "IsoDoor") then return false end
+
+  local script = object:getEntityScript()
+  if not script then return false end
+
+  local fullName = script:getFullName()
+  if not fullName or not fullName:find("^Base%.Walls_GarageDoor_") then
+    return false
+  end
+
+  local modData = object:getModData()
+  if modData.BGDLegacyEntityMigrated then return false end
+
+  GameEntityFactory.RemoveComponentType(object, ComponentType.Script)
+  GameEntityFactory.RemoveComponentType(object, ComponentType.SpriteConfig)
+  GameEntityFactory.RemoveComponentType(object, ComponentType.UiConfig)
+  GameEntityFactory.RemoveComponentType(object, ComponentType.CraftRecipe)
+
+  modData.BGDLegacyEntityMigrated = true
+  return true
+end
+
+Events.LoadGridsquare.Add(function(square)
+  if not square then return end
+
+  local objects = square:getObjects()
+  if not objects then return end
+
+  for i = 0, objects:size() - 1 do
+    local object = objects:get(i)
+    BGD_MigrateLegacyGarageDoor(object)
+  end
+end)
