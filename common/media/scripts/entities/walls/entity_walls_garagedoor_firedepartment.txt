@@ -42,6 +42,24 @@ module Base
                     row = walls_garage_02_35 walls_garage_02_36 walls_garage_02_37,
                 }
             }
+
+            face W_Open
+            {
+                layer
+                {
+                    row = walls_garage_02_42,
+                    row = walls_garage_02_41,
+                    row = walls_garage_02_40,
+                } 
+            }
+
+            face N_Open
+            {
+                layer
+                {
+                    row = walls_garage_02_43 walls_garage_02_44 walls_garage_02_45,
+                }
+            }
         }
 
         component CraftRecipe

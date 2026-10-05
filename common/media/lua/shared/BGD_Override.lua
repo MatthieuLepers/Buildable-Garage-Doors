@@ -60,12 +60,6 @@ Events.OnInitGlobalModData.Add(function()
     local totalHealth = baseHealth + bonusHealth + skillBonus;
     door:setHealth(totalHealth)
 
-    -- Garage doors are regular IsoDoor objects and must not keep a dependency
-    -- on the mod GameEntityScript once placed. In particular, creating an
-    -- IsoObject entity from Walls_GarageDoor_* causes the world dictionary to
-    -- persist the mod SpriteConfig script name.
-    --
-    -- The legacy entity is migrated separately when an old door is loaded.
     local replacedObjectIndex = -1;
     if self.previousStageObject and self.previousStageObject:getSquare() == square then
       replacedObjectIndex = self.previousStageObject:getSquare():transmitRemoveItemFromSquare(self.previousStageObject);
