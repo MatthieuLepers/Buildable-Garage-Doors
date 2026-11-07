@@ -134,13 +134,16 @@ Events.OnInitGlobalModData.Add(function()
     local min = 0
     local max = (SandboxVars.BuildableGarageDoor.MaxSize or 5) - 2
     local sanitizedSize = math.min(max, math.max(min, size))
+    local garageSize = sanitizedSize + 2 -- adding 2 to add left and right tiles
 
     local modData = self.modData or {}
-    modData.BGDGarageDoorSize = sanitizedSize + 2 -- adding 2 to add left and right tiles
+    if modData.BGDGarageDoorSize == garageSize then return end
+
+    modData.BGDGarageDoorSize = garageSize
     self.modData = modData
 
     if isClient() then
-      sendClientCommand("BuildableGarageDoors", "SetGarageDoorSize", { size = sanitizedSize + 2 })
+      sendClientCommand("BuildableGarageDoors", "SetGarageDoorSize", { size = garageSize })
     end
   end
 
